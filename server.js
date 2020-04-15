@@ -1,30 +1,41 @@
 const express = require('express');
-const path = require('path'); //klei ścieżki
+const path = require('path');
 
 
-const app = express(); //twprzenie nowej aplikacji express i przypisanie do stąłej app
+const app = express();
 
-app.get('/', (req, res) => { //app to odnośnik do serwera. get to metodą którą chcemy obsługiwać w endpoincie
-    res.sendFile(path.join(__dirname + '/views/index.html')); //req=request(zapytanie o informacje o użytkowniku) res=respons(odpowiedzi zawiera metody do komunikacji zwrotnej)
+app.use((req, res, next) => {
+    res.show = (name) => {
+      res.sendFile(path.join(__dirname + `/views/${name}`));
+    };
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.show('index.html');
 });
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/about.html'));
+    res.show('about.html');
 });
 
 app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/contact.html'));
+    res.show('contact.html');
 });
 
 app.get('/info', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/info.html'));
+    res.show('info.html');
 });
 
 app.get('/history', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/history.html'));
+    res.show('history.html');
 });
 
+app.use((req, res) => {
+    res.status(404).send('404 not found...');
+})
 
-app.listen(8000, () => {  //aplikacja app. utworzeni serwera http na porcie 8000
+
+app.listen(8000, () => {
   console.log('Server is running on port: 8000');
 });

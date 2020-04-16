@@ -1,4 +1,18 @@
 h1 {
     font-weight: lighter;
     font-style: italic;
-  }
+}
+
+.bodyDark {
+  background: #4e4e4e;
+  color: #eeeded;
+}
+
+.navDark {
+  color: #eeeded;
+  text-decoration: none;
+}
+
+.navDark:hover {
+  color: #bc551a;
+}
